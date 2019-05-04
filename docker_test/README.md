@@ -33,13 +33,13 @@ Create a file structure based on the files that can be found here.
 
 ## Test
 
-Open a web browser and connect to: "localhost:8000" when it is running.
+Open a web browser and connect to: "localhost:8000" when it's running.
 
 ## Check logs
 
-    docker-compose logs django_1
+    docker-compose logs django
 
-    docker-compose logs nginx_1
+    docker-compose logs nginx
 
 
 

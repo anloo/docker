@@ -1,23 +1,21 @@
 version: '3'
 
 services:
+    
     nginx:
       image: nginx:latest
-      container_name: nginx_1
       ports:
-        - "8000:8000"
+        - "80:80"
       volumes:
         - ./src/sharkdata_py3:/sharkdata_py3
         - ./config/nginx:/etc/nginx/conf.d
         - ./static:/static
-      # links:
-      #   - web:web
       depends_on:
         - django
+
     django:
       build: .
-      container_name: django_1
-      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn sharkdata_py3.wsgi -b 0.0.0.0:8000 --workers 3"
+      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn sharkdata_py3.wsgi -b 0.0.0.0:8000"
       volumes:
         - ./src/sharkdata_py3:/sharkdata_py3
         - ./static:/static
