@@ -1,6 +1,6 @@
 # docker_test
 
-SHARKdata - Docker file for test. 
+SHARKdata - Docker for test. 
 
 **Don't use this setup for production.**
 
@@ -20,6 +20,7 @@ Create a file structure based on the files that can be found here.
 
 ## Check out the source code 
 
+    cd docker_test
     git clone https://github.com/sharkdata/sharkdata_py3.git src
 
 ## Build, start and stop
