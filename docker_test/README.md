@@ -1,10 +1,16 @@
 # docker_test
 
+SHARKdata - Docker file for test. 
+
+**Don't use this setup for production.**
+
+Main project page: https://github.com/sharkdata 
+
 ## File structure
 
 Create a file structure based on the files that can be found here.
 
-    docker_compose
+    docker_test
     - Dockerfile
     - docker-compose.yml
     - config
@@ -14,9 +20,7 @@ Create a file structure based on the files that can be found here.
 
 ## Check out the source code 
 
-   cd src
-   git clone https://github.com/sharkdata/sharkdata_py3.git
-   cd ..
+    git clone https://github.com/sharkdata/sharkdata_py3.git src
 
 ## Build, start and stop
 
@@ -25,6 +29,8 @@ Create a file structure based on the files that can be found here.
     docker-compose up -d
 
     docker-compose down # When finished.
+
+## Test
 
 Open a web browser and connect to: "localhost:8000" when it is running.
 
