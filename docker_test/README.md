@@ -2,7 +2,8 @@
 
 SHARKdata - Docker for test. 
 
-**Don't use this setup for production.**
+This is a simple as possible setup for running "nginx - gunicorn - django" by using docker-compose.
+Modify the sharkdata_py3.conf file if it should be accessed from other hosts than localhost.
 
 Main project page: https://github.com/sharkdata 
 
@@ -20,8 +21,9 @@ Create a file structure based on the files that can be found here.
 
 ## Check out the source code 
 
-    cd docker_test
-    git clone https://github.com/sharkdata/sharkdata_py3.git src
+    cd docker_test/src
+    git clone https://github.com/sharkdata/sharkdata_py3.git 
+    cd ..
 
 ## Build, start and stop
 
