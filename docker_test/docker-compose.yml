@@ -15,6 +15,8 @@ services:
 
     django:
       build: .
+      env_file:
+        - sharkdata_py3.env
       command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn sharkdata_py3.wsgi -b 0.0.0.0:8000"
       volumes:
         - ./src/sharkdata_py3:/sharkdata_py3

@@ -1,4 +1,4 @@
-# docker_test
+# SHARKdata - docker_test
 
 SHARKdata - Docker for test. 
 
@@ -14,6 +14,7 @@ Create a file structure based on the files that can be found here.
     docker_test
     - Dockerfile
     - docker-compose.yml
+    - sharkdata_py3.env
     - config
       - nginx
         - sharkdata_py3.conf

@@ -20,6 +20,7 @@ RUN mkdir /log
 COPY src/sharkdata_py3/requirements.txt /config/requirements.txt
 RUN pip install --no-cache-dir -r /config/requirements.txt
 RUN pip install --no-cache-dir gunicorn
+RUN pip install --no-cache-dir psycopg2
 
 # Set default directory for containers.
 WORKDIR /sharkdata_py3
