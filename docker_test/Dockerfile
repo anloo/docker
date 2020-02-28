@@ -1,26 +1,35 @@
-FROM python:3.7-slim 
+FROM python:3
 
-ENV PYTHONUNBUFFERED 1
+RUN apt-get -y update 
+RUN apt-get -y upgrade 
+RUN apt-get -y install git 
+RUN pip install --upgrade pip 
 
 EXPOSE 8000
 
-RUN apt-get -y update 
-RUN pip install --upgrade pip 
-
 # Create directories. 
-RUN mkdir /sharkdata_py3
-RUN mkdir /static
-RUN mkdir /config
-RUN mkdir /data_in
-RUN mkdir /data
+# At least "data_in" needs to be mounted.
+RUN mkdir /src
 RUN mkdir /db
 RUN mkdir /log
+RUN mkdir /static
+RUN mkdir /data_in
+RUN mkdir /data_in/datasets
+RUN mkdir /data_in/resources
+RUN mkdir /data
 
-# Install.
-COPY src/sharkdata_py3/requirements.txt /config/requirements.txt
-RUN pip install --no-cache-dir -r /config/requirements.txt
+# Get software and install libraries.
+WORKDIR /src/
+RUN git clone https://github.com/sharkdata/sharkdata_py3.git
+WORKDIR /src/sharkdata_py3/
+RUN pip install --no-cache-dir -r requirements.txt 
 RUN pip install --no-cache-dir gunicorn
-# RUN pip install --no-cache-dir psycopg2
+## RUN pip install --no-cache-dir psycopg2
 
-# Set default directory for containers.
-WORKDIR /sharkdata_py3
+# Django - create db and collect static.
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+RUN python manage.py collectstatic --noinput
+
+# Django - run in development mode.
+### CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

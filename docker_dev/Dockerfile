@@ -1,4 +1,4 @@
-FROM python:3.7-slim 
+FROM python:3
 
 RUN apt-get -y update 
 RUN apt-get -y install git 
@@ -24,7 +24,8 @@ WORKDIR /src/sharkdata_py3/
 RUN pip install --no-cache-dir -r requirements.txt 
 
 # Django - create db and collect static.
-RUN python manage.py migrate 
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 RUN python manage.py collectstatic --noinput
 
 # Django - run in development mode.

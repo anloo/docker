@@ -1,30 +1,44 @@
-# SHARKdata - Docker. 
+# SHARKdata - Docker
 
-Docker can be used for development, test and production.  
+Docker can be used both for test and prod.
 
-Main project page: https://github.com/sharkdata 
+Main project page for SHARKdata: https://github.com/sharkdata
 
-## Single docker file
+## Development
 
-Normally, you don't need docker to develop SHARKdata. Just use Python 3 and set up a virtual environment for all installed packages.
+Normally, you don't need docker to develop SHARKdata.
+Use Python 3 and set up a virtual environment. Then clone the code from GitHub:
 
-But if you don't want to install Python, then it is possible to run SHARKdata on your local machine by using the docker file described here: 
-https://github.com/sharkdata/docker/tree/master/docker_dev 
+    python3 -m venv venv
+    source venv/bin/activate
+    git clone https://github.com/sharkdata/sharkdata_py3.git
+    cd sharkdata_py3
+    pip install -r requirements.txt
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py runserver
 
-It contains the source code and all installed packages needed, as well as a sqlite database.
+    # Open a web browser. Address: localhost:8000
+    # Add datasets (as zip files) and resources to "./data_in".
 
-## Docker compose
+## Test
 
-Docker compose is recommended for installation if you want to run SHARKdata on a public server. 
+Docker-compose for sharkdata_test is similar to sharkdata_prod except for where the volumes are located.
+For test they are placed outside the docker environment and therefore the sftp container is not needed.
+Docker-compose for test contains a setup with "nginx - gunicorn - django" similar to the production version.
 
-You can find a template for your setup here: 
-https://github.com/sharkdata/docker/tree/master/docker_test 
+You can find a template for your setup here:
+https://github.com/sharkdata/docker/tree/master/docker_test
 
-It contains a setup with "nginx - gunicorn - django" that can be extended for both test and production. 
+There are desktop versions of docker for both Windows and macOS that can be used for local test.
+Documentation and download/installation instructions can be found here: https://docs.docker.com
 
-## Install docker
+## Production
 
-There are desktop versions of docker for both Windows and macOS that can be used for development. 
+In the production version all volumes are placed inside the docker environments. 
+A container with sftp support is used to add and remove data from the "data_in" volume.
 
-Documentation and download/installation instructions can be found here: https://docs.docker.com 
+You can find a template for your setup here:
+https://github.com/sharkdata/docker/tree/master/docker_prod
 
+There is also a script available to set up an Ubuntu server to run SHARKdata.
