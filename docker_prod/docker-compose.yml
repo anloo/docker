@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    
+    nginx:
+      image: nginx:latest
+      restart: always
+      ports:
+        - "80:80"
+      volumes:
+        - ./config/nginx:/etc/nginx/conf.d
+        - static:/static
+      depends_on:
+        - django
+
+
+#    sftp:
+#      image: atmoz/sftp
+#      volumes:
+#        - data_in:/data_in
+
+
+    django:
+      build: .
+      restart: always
+      env_file:
+        - sharkdata_py3.env
+      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn sharkdata_py3.wsgi -b 0.0.0.0:8000"
+      volumes:
+        - static:/static
+        - log:/log
+        - db:/db
+        - data:/data
+        - ./data_in:/data_in
+      expose:
+        - "8000"
+
+volumes:
+  static:
+  log:
+  db:
+  data:
