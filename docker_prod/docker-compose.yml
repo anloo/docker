@@ -17,7 +17,7 @@ services:
 #    sftp:
 #      image: atmoz/sftp
 #      volumes:
-#        - data_in:/data_in
+#        - ./data_in:/data_in
 
 
     django:
@@ -25,7 +25,13 @@ services:
       restart: always
       env_file:
         - sharkdata_py3.env
-      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn sharkdata_py3.wsgi -b 0.0.0.0:8000"
+#      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn sharkdata_py3.wsgi -b 0.0.0.0:8000"
+      command: >
+        sh -c "python manage.py wait_for_db &&
+               python manage.py makemigrations &&
+               python manage.py migrate &&
+               python manage.py collectstatic --noinput &&
+               python manage.py runserver 0.0.0.0:8000"
       volumes:
         - static:/static
         - log:/log
