@@ -1,6 +1,6 @@
 # SHARKdata - Docker
 
-Docker can be used both for test and prod.
+Docker can be used both for test and production.
 
 Main project page for SHARKdata: https://github.com/sharkdata
 
@@ -23,22 +23,36 @@ Use Python 3 and set up a virtual environment. Then clone the code from GitHub:
 
 ## Test
 
-Docker-compose for sharkdata_test is similar to sharkdata_prod except for where the volumes are located.
-For test they are placed outside the docker environment and therefore the sftp container is not needed.
-Docker-compose for test contains a setup with "nginx - gunicorn - django" similar to the production version.
+Docker-compose for test is similar to production except for where the volumes are located. 
+For test they are placed outside the docker environment and therefore the sftp container is not needed. 
+Docker-compose for test contains a setup with "nginx - gunicorn - django" similar to the production version. 
 
-You can find a template for your setup here:
-https://github.com/sharkdata/docker/tree/master/docker_test
+    git clone https://github.com/sharkdata/docker.git 
+    cd docker_test
+    docker-compose build
+    docker-compose up -d
+    docker-compose down # When finished.
 
-There are desktop versions of docker for both Windows and macOS that can be used for local test.
+    # To check log files.
+    docker-compose logs django
+    docker-compose logs nginx
+
+There are desktop versions of docker for both Windows and macOS that can be used for local test. 
 Documentation and download/installation instructions can be found here: https://docs.docker.com
 
 ## Production
 
-In the production version all volumes are placed inside the docker environments. 
-A container with sftp support is used to add and remove data from the "data_in" volume.
+In the production version all volumes are placed inside the docker environment. 
+A container with sftp support is used to add and remove data from the 
+"datasets" and "resources" volumes. 
 
-You can find a template for your setup here:
-https://github.com/sharkdata/docker/tree/master/docker_prod
+    git clone https://github.com/sharkdata/docker.git
+    cd docker/docker_prod
 
-There is also a script available to set up an Ubuntu server to run SHARKdata.
+    cp sharkdata_TEMPLATE.env sharkdata.env
+    nano sharkdata.env # To edit your environment variables for a secure setup.
+
+    sudo docker-compose up -d
+
+There is also a script available to automatically set up an Ubuntu server. 
+Check the script "install-ubuntu-server".
