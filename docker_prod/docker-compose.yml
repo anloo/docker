@@ -16,7 +16,7 @@ services:
     sftp:
       image: atmoz/sftp
       ports:
-        "2222:22"
+        - "2222:22"
       env_file:
         - sharkdata.env
       volumes:
