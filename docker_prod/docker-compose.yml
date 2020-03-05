@@ -20,8 +20,8 @@ services:
       env_file:
         - sharkdata.env
       volumes:
-        - datasets:/datasets
-        - resources:/resources
+        - datasets:/home/sharkadmin/datasets
+        - resources:/home/sharkadmin/resources
 
     django:
       build: .
