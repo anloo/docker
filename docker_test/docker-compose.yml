@@ -17,7 +17,7 @@ services:
       build: .
       restart: always
       env_file:
-        - sharkdata_py3.env
+        - sharkdata.env
       command: >
         sh -c "python manage.py makemigrations &&
                python manage.py migrate &&

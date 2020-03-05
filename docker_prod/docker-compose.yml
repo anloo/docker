@@ -13,18 +13,19 @@ services:
       depends_on:
         - django
 
-
-#    sftp:
-#      image: atmoz/sftp
-#      volumes:
-#        - ./data_in:/data_in
-
+    sftp:
+      image: atmoz/sftp
+      env_file:
+        - sharkdata.env
+      volumes:
+        - datasets:/datasets
+        - resources:/resources
 
     django:
       build: .
       restart: always
       env_file:
-        - sharkdata_py3.env
+        - sharkdata.env
       command: >
         sh -c "python manage.py makemigrations &&
                python manage.py migrate &&
@@ -35,7 +36,8 @@ services:
         - log:/log
         - db:/db
         - data:/data
-        - ./data_in:/data_in
+        - datasets:/data_in/datasets
+        - resources:/data_in/resources
       expose:
         - "8000"
 
@@ -44,3 +46,5 @@ volumes:
   log:
   db:
   data:
+  datasets:
+  resources:
