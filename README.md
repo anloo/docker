@@ -28,7 +28,7 @@ For test they are placed outside the docker environment and therefore the sftp c
 Docker-compose for test contains a setup with "nginx - gunicorn - django" similar to the production version. 
 
     git clone https://github.com/sharkdata/docker.git 
-    cd docker_test
+    cd docker/docker_test
     docker-compose build
     docker-compose up -d
     docker-compose down # When finished.
@@ -52,7 +52,7 @@ A container with sftp support is used to add and remove data from the
     cp sharkdata_TEMPLATE.env sharkdata.env
     nano sharkdata.env # To edit your environment variables for a secure setup.
 
-    sudo docker-compose up -d
+    docker-compose up -d
 
 There is also a script available to automatically set up an Ubuntu server. 
 Check the script "install-ubuntu-server".
