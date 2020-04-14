@@ -26,6 +26,10 @@ echo ""
 echo "     If docker and docker-compose is not already installed, they will be"
 echo "     installed from the official docker repo."
 echo ""
+echo " * Fetch the sharkdata docker components"
+echo ""
+echo "     If the sharkdata/docker repository is not already present in the"
+echo "     administrator's home directory, it will be pulled from github."
 
 read -p "Are you sure you want to continue (y/n)? " reply
 [[ "$reply" =~ ^[Yy]$ ]] || exit 0
@@ -99,8 +103,20 @@ if ! command docker-compose -v > /dev/null 2>&1; then
   sudo chmod +x /usr/local/bin/docker-compose
 fi
 
+# Fetch sharkdata/docker from github (if not already present)
+if [[ ! -e "/home/$admin_username/docker" ]]; then
+  echo ""
+  echo "Fetching sharkdata docker components ..."
+  echo ""
+  git clone https://github.com/sharkdata/docker.git "/home/$admin_username/docker"
+fi
+
 echo ""
-echo "Rename sharkdata_TEMPLATE.env to sharkdata.env and edit it to set your environment variables."
+echo "Change your working directory:"
+echo "  cd \"/home/$admin_username/docker/\""
+echo ""
+echo "Rename sharkdata_TEMPLATE.env to sharkdata.env and edit it to set your"
+echo "environment variables."
 echo ""
 echo "To finish the installation run:"
 echo "  sudo docker-compose up -d"
