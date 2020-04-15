@@ -112,6 +112,13 @@ if [[ ! -e "/home/$admin_username/docker" ]]; then
   git clone https://github.com/sharkdata/docker.git "/home/$admin_username/docker"
 fi
 
+sudo chown -R "$admin_username:$admin_username" "/home/$admin_username/docker"
+
+# Make sure that datasets and resources directories exists
+sudo mkdir -p "/home/$admin_username/sharkdata_content/datasets"
+sudo mkdir -p "/home/$admin_username/sharkdata_content/resources"
+sudo chown -R "$admin_username:$admin_username" "/home/$admin_username/sharkdata_content/"
+
 echo ""
 echo "Change your working directory:"
 echo "  cd \"/home/$admin_username/docker/docker_prod/\""
